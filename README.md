@@ -4,6 +4,8 @@ Forked from the original project by [timcol](https://github.com/timcol/inquire),
 
 A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model using the OpenAI API. Users can chat with the model in real-time, choose from predefined system prompts, or define their own custom prompts for a personalized interaction experience.
 
+It also works across Mac, Linux and Windows. The version made by timcol was *nix only.
+
 ## CLI in action
 
 ## Features
