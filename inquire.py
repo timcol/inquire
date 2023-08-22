@@ -57,7 +57,7 @@ selected_prompt = system_prompts[0]
 if len(sys.argv) < 2:
     os.system('clear')
     while True:  # Keep the interaction going in a loop
-        prompt = input("How can I help: ")
+        prompt = input("\033[32mHow can I help:\033[0m ")
         if prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop if user types 'exit' or 'quit'
         if prompt.lower() == 'np':
