@@ -6,8 +6,7 @@ import re
 
 # !!!You need an API key!!!
 # https://platform.openai.com/account/api-keys
-with open("/users/tim/.api_key.txt") as f:
-    openai.api_key = f.read().strip()
+openai.api_key = os.environ.get('OPENAI_API_KEY')
 
 def ask_gpt(prompt):
     r = openai.ChatCompletion.create(
