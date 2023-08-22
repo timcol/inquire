@@ -2,6 +2,8 @@
 
 A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model using the OpenAI API. Users can chat with the model in real-time, choose from a variety of system prompts, or pass a prompt directly via command-line arguments.
 
+![CLI in action](output.gif)
+
 ## Features
 
 - Interact with GPT-3.5-turbo in real-time from your terminal.
