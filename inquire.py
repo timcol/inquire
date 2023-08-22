@@ -2,17 +2,26 @@
 import openai
 import sys
 import os
-import re
+import platform
 
-# !!! You need an API key !!!
 openai.api_key = os.environ.get('OPENAI_API_KEY')
 
-# taken from https://github.com/mustvlad/ChatGPT-System-Prompts/
-system_prompts = [
-    "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.",
-    "You are a language learning coach who helps users learn and practice new languages. Offer grammar explanations, vocabulary building exercises, and pronunciation tips. Engage users in conversations to help them improve their listening and speaking skills and gain confidence in using the language.",
-    "You are an expert in world history, knowledgeable about different eras, civilizations, and significant events. Provide detailed historical context and explanations when answering questions. Be as informative as possible, while keeping your responses engaging and accessible"
-]
+def clear_screen():
+    if platform.system() == 'Windows':
+        os.system('cls')
+    else:
+        os.system('clear')
+
+def choose_prompt(prompts):
+    print("Would you like to use one of the default prompts, or enter your own?")
+    choice = input("Enter 'd' for default, 'c' for custom: ").lower()
+    if choice == 'c':
+        return input("Enter your custom prompt: ")
+    elif choice == 'd':
+        return display_system_prompts(prompts)
+    else:
+        print("Invalid choice, defaulting to first system prompt.")
+        return prompts[0]
 
 def display_system_prompts(prompts):
     print("Select a system prompt:")
@@ -21,16 +30,14 @@ def display_system_prompts(prompts):
     choice = int(input("\nEnter your choice (number): "))
     return prompts[choice - 1]
 
-
 def ask_gpt(prompt):
     r = openai.ChatCompletion.create(
         model="gpt-3.5-turbo",
         messages=[
-            {"role": "system", "content": "You are an expert in all fields and disciplines. Explain concepts, theories and phenomena in an engaging and accessible way"},
+            {"role": "system", "content": prompt},
             {"role": "user", "content": prompt}
         ]
     )
-
     text = r["choices"][0]["message"]["content"]
     if text.startswith('`') and text.endswith('`'):
         text = text[1:-1]
@@ -38,12 +45,12 @@ def ask_gpt(prompt):
 
 def stream_gpt(prompt):
     r = openai.ChatCompletion.create(
-    model="gpt-3.5-turbo",
-    messages=[
-        {"role": "system", "content": "You are ChatGPT, a large language model trained by OpenAI."},
-        {"role": "user", "content": prompt}
-    ],
-    stream=True
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": prompt},
+            {"role": "user", "content": prompt}
+        ],
+        stream=True
     )
     print()
     for chunk in r:
@@ -52,22 +59,26 @@ def stream_gpt(prompt):
             print(content, end="")
     print("\n")
 
-selected_prompt = system_prompts[0]
+system_prompts = [
+    "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.",
+    "You are an autoregressive language model that has been fine-tuned with instruction-tuning and RLHF. You carefully provide accurate, factual, thoughtful, nuanced answers, and are brilliant at reasoning. If you think there might not be a correct answer, you say so.",
+]
 
 if len(sys.argv) < 2:
-    os.system('clear')
+    clear_screen()
+    selected_prompt = choose_prompt(system_prompts)
     while True:  # Keep the interaction going in a loop
         prompt = input("\033[32mHow can I help:\033[0m ")
         if prompt.lower() in ['exit', 'quit']:
-            break  # Exit the loop if user types 'exit' or 'quit'
+            break
         if prompt.lower() == 'np':
-            selected_prompt = display_system_prompts(system_prompts)
-            os.system('clear')
+            selected_prompt = choose_prompt(system_prompts)
+            clear_screen()
             continue
-        response = stream_gpt(prompt)
+        response = stream_gpt(prompt)  # or use selected_prompt if needed
         input("[continue...]")
-        os.system('clear')
+        clear_screen()
 else:
-    prompt = ' ' .join(sys.argv[1:])
+    prompt = ' '.join(sys.argv[1:])
     response = ask_gpt(prompt)
     print("\n" + response + "\n")
