@@ -6,8 +6,6 @@ A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model us
 
 It also works across Mac, Linux and Windows. The version made by timcol was *nix only.
 
-## CLI in action
-
 ## Features
 
 - Interact with GPT-3.5-turbo in real-time from your terminal.
