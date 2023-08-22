@@ -1,19 +1,16 @@
-# Inquire - ChatGPT Interactive CLI
+# Inquirewin - ChatGPT Interactive CLI
 
-This forked version (with credit to timcol), adds the ability to run on Windows. 
+Forked from the original project by [timcol](https://github.com/timcol/inquire), this version adds enhanced functionality to allow users to select from two predefined system prompts or write their own custom prompt, providing a more tailored interaction with the GPT-3.5-turbo model.
 
-The main change is the addition of the clear_screen function, which abstracts the logic for clearing the terminal screen based on the user's operating system. I've replaced the direct calls to os.system('clear') with calls to this function.
+A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model using the OpenAI API. Users can chat with the model in real-time, choose from predefined system prompts, or define their own custom prompts for a personalized interaction experience.
 
-Additionally, added functionality to allow users to choose from predefined system prompts or define their own custom prompts.
-
-A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model using the OpenAI API. Users can chat with the model in real-time, choose from a variety of system prompts, or pass a prompt directly via command-line arguments.
-
-![CLI in action](output.gif)
+## CLI in action
 
 ## Features
 
 - Interact with GPT-3.5-turbo in real-time from your terminal.
-- Choose from a variety of predefined system prompts to guide the model's behavior.
+- Choose from two built-in predefined system prompts to guide the model's behavior.
+- Write your own custom prompt for a unique interaction experience.
 - Streamed response for a smoother user experience.
 - Option to pass a prompt directly via command-line arguments.
 - Secure API key handling through environment variables.
@@ -25,27 +22,44 @@ A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model us
 
 ## Setup
 
-1. Clone this repository:
+### Clone this repository:
 
-```
-git clone https://github.com/timcol/inquire 
+```bash
+git clone https://github.com/furkly/inquire/tree/inquirewin
 cd inquire
 ```
 
+### Install the required package:
 
-2. Install the required package:
-
-```
+```bash
 pip install openai
 ```
 
-3. Set your OpenAI API key as an environment variable:
+### Set your OpenAI API key as an environment variable:
 
-```
+#### For Linux/Mac:
+
+```bash
 export OPENAI_API_KEY='YOUR_API_KEY'
 ```
 
-Replace `'YOUR_API_KEY'` with your actual OpenAI API key.
+#### For Windows:
+
+Follow the [Setting Up OpenAI API Key on Windows](#setting-up-openai-api-key-on-windows) guide below.
+
+Replace 'YOUR_API_KEY' with your actual OpenAI API key.
+
+### Setting Up OpenAI API Key on Windows
+
+To use this script on Windows, follow these steps:
+
+1. Find Your API Key in your OpenAI account.
+2. Open Environment Variables.
+3. Create a New Environment Variable named `OPENAI_API_KEY`.
+4. Paste your OpenAI API key into the Variable value field.
+5. Confirm and Restart.
+
+Detailed instructions can be found in the [section above](#prerequisites).
 
 ## Usage
 
@@ -53,19 +67,17 @@ Replace `'YOUR_API_KEY'` with your actual OpenAI API key.
 
 Run the script without any arguments to enter interactive mode:
 
-```
+```bash
 ./inquire.py
 ```
 
-You'll be prompted with `How can I help:`. Enter your questions or statements. 
-
-To change the system prompt, type `np`. To exit, type `exit` or `quit`.
+You'll be prompted with "How can I help:". Enter your questions or statements. You may select from built-in prompts or write a custom one as needed.
 
 ### Command-Line Argument Mode
 
 You can also pass a prompt directly via command-line arguments:
 
-```
+```bash
 ./inquire.py "Your question or statement here"
 ```
 
