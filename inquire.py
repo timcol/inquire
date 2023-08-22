@@ -4,9 +4,23 @@ import sys
 import os
 import re
 
-# !!!You need an API key!!!
-# https://platform.openai.com/account/api-keys
+# !!! You need an API key !!!
 openai.api_key = os.environ.get('OPENAI_API_KEY')
+
+# taken from https://github.com/mustvlad/ChatGPT-System-Prompts/
+system_prompts = [
+    "You are ChatGPT, a large language model trained by OpenAI. Answer as concisely as possible.",
+    "You are a language learning coach who helps users learn and practice new languages. Offer grammar explanations, vocabulary building exercises, and pronunciation tips. Engage users in conversations to help them improve their listening and speaking skills and gain confidence in using the language.",
+    "You are an expert in world history, knowledgeable about different eras, civilizations, and significant events. Provide detailed historical context and explanations when answering questions. Be as informative as possible, while keeping your responses engaging and accessible"
+]
+
+def display_system_prompts(prompts):
+    print("Select a system prompt:")
+    for idx, prompt in enumerate(prompts, 1):
+        print(f"{idx}. {prompt}")
+    choice = int(input("\nEnter your choice (number): "))
+    return prompts[choice - 1]
+
 
 def ask_gpt(prompt):
     r = openai.ChatCompletion.create(
@@ -31,16 +45,14 @@ def stream_gpt(prompt):
     ],
     stream=True
     )
-    
     print()
     for chunk in r:
-    # if chunk["choices"][0]["delta"]["content"]:
-    #token = chunk.get"choices"][0]["delta"]["content"])
         content = chunk.get("choices", [{}])[0].get("delta", {}).get("content")
         if content:
             print(content, end="")
     print("\n")
 
+selected_prompt = system_prompts[0]
 
 if len(sys.argv) < 2:
     os.system('clear')
@@ -48,6 +60,10 @@ if len(sys.argv) < 2:
         prompt = input("How can I help: ")
         if prompt.lower() in ['exit', 'quit']:
             break  # Exit the loop if user types 'exit' or 'quit'
+        if prompt.lower() == 'np':
+            selected_prompt = display_system_prompts(system_prompts)
+            os.system('clear')
+            continue
         response = stream_gpt(prompt)
         input("[continue...]")
         os.system('clear')
