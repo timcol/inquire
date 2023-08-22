@@ -19,23 +19,23 @@ A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model us
 
 1. Clone this repository:
 
-\```
+```
 git clone https://github.com/timcol/inquire 
 cd inquire
-\```
+```
 
 
 2. Install the required package:
 
-\```
+```
 pip install openai
-\```
+```
 
 3. Set your OpenAI API key as an environment variable:
 
-\```
+```
 export OPENAI_API_KEY='YOUR_API_KEY'
-\```
+```
 
 Replace `'YOUR_API_KEY'` with your actual OpenAI API key.
 
@@ -45,9 +45,9 @@ Replace `'YOUR_API_KEY'` with your actual OpenAI API key.
 
 Run the script without any arguments to enter interactive mode:
 
-\```
+```
 ./inquire.py
-\```
+```
 
 You'll be prompted with `How can I help:`. Enter your questions or statements. 
 
@@ -57,9 +57,9 @@ To change the system prompt, type `np`. To exit, type `exit` or `quit`.
 
 You can also pass a prompt directly via command-line arguments:
 
-\```
+```
 ./chatgpt_cli.py "Your question or statement here"
-\```
+```
 
 ## License
 
