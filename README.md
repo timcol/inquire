@@ -1,4 +1,4 @@
-# ChatGPT Interactive CLI
+# Inquire - ChatGPT Interactive CLI
 
 A simple command-line interface to interact with OpenAI's GPT-3.5-turbo model using the OpenAI API. Users can chat with the model in real-time, choose from a variety of system prompts, or pass a prompt directly via command-line arguments.
 
@@ -58,7 +58,7 @@ To change the system prompt, type `np`. To exit, type `exit` or `quit`.
 You can also pass a prompt directly via command-line arguments:
 
 ```
-./chatgpt_cli.py "Your question or statement here"
+./inquire.py "Your question or statement here"
 ```
 
 ## License
