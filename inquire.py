@@ -70,4 +70,5 @@ if len(sys.argv) < 2:
 else:
     prompt = ' ' .join(sys.argv[1:])
     response = ask_gpt(prompt)
+    os.system(f'say "{response}" &')
     print("\n" + response + "\n")
